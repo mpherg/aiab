@@ -1,0 +1,26 @@
+version: '2'
+services:
+  bitbucket-data:
+    image: atlassian/bitbucket-server-data:latest
+    container_name: bitbucket-data
+
+  bitbucket:
+    image: atlassian/bitbucket-server:latest
+    container_name: bitbucket
+    ports:
+      - 7990:7990
+      - 7999:7999
+    volumes_from:
+      - bitbucket-data
+
+  jira-data:
+    image: mpherg/jira-data:latest
+    container_name: jira-data
+
+  jira-software:
+    image: cptactionhank/atlassian-jira-software:latest
+    container_name: jira-software
+    ports:
+      - 8080:8080
+    volumes_from:
+      - jira-data
